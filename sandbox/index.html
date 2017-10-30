@@ -1,11 +1,10 @@
 <script>
-
-if(window.Notification && Notification.permission !== "denied") {
-	Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
-		var n = new Notification('Title', { 
-			body: 'I am the body text!'			
-		}); 
-	});
-}
-
+navigator.serviceWorker.register('sw.js');
+Notification.requestPermission(function(result) {
+  if (result === 'granted') {
+    navigator.serviceWorker.ready.then(function(registration) {
+      registration.showNotification('Notification with ServiceWorker');
+    });
+  }
+});
 </script>
